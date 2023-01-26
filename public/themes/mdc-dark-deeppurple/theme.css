@@ -4231,11 +4231,18 @@
   margin-left: 0.5rem;
 }
 .p-tabview .p-tabview-nav-btn.p-link {
+  position: relative;
   background: transparent;
   color: #CE93D8;
   width: 2.25rem;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-width: 0 0 1px 0;
+}
+.p-tabview .p-tabview-nav-btn.p-link[disabled] {
+  color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
 }
 .p-tabview .p-tabview-nav-btn.p-link:focus {
   outline: 0 none;

@@ -4182,6 +4182,7 @@
   margin-left: 0.5rem;
 }
 .p-tabview .p-tabview-nav-btn.p-link {
+  position: relative;
   background: #AFD3C8;
   color: #385048;
   width: 2.357rem;

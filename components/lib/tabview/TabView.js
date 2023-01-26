@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ariaLabel } from '../api/Api';
-import { useMountEffect, useUpdateEffect } from '../hooks/Hooks';
+import { useMountEffect, useResizeListener, useUpdateEffect } from '../hooks/Hooks';
 import { Ripple } from '../ripple/Ripple';
 import { classNames, DomHandler, ObjectUtils, UniqueComponentId } from '../utils/Utils';
 
@@ -10,6 +10,7 @@ export const TabView = React.forwardRef((props, ref) => {
     const [idState, setIdState] = React.useState(props.id);
     const [backwardIsDisabledState, setBackwardIsDisabledState] = React.useState(true);
     const [forwardIsDisabledState, setForwardIsDisabledState] = React.useState(false);
+    const isScrollable = props.scrollable && !backwardIsDisabledState || !forwardIsDisabledState;
     const [hiddenTabsState, setHiddenTabsState] = React.useState([]);
     const [activeIndexState, setActiveIndexState] = React.useState(props.activeIndex);
     const elementRef = React.useRef(null);
@@ -96,7 +97,7 @@ export const TabView = React.forwardRef((props, ref) => {
         const width = DomHandler.getWidth(contentRef.current);
 
         setBackwardIsDisabledState(scrollLeft === 0);
-        setForwardIsDisabledState(scrollLeft === scrollWidth - width);
+        setForwardIsDisabledState(scrollLeft >= scrollWidth - width - 1);
     };
 
     const onScroll = (event) => {
@@ -136,7 +137,21 @@ export const TabView = React.forwardRef((props, ref) => {
         updateInkBar();
     });
 
+    React.useEffect(() => {
+        if (props.scrollable) {
+            updateButtonState();
+        }
+    }, [ props.scrollable ]);
+
+    const [bindWindowResizeListener] = useResizeListener({
+        listener: () => {
+            updateButtonState();
+        }
+    });
+
     useMountEffect(() => {
+        bindWindowResizeListener();
+
         if (!idState) {
             setIdState(UniqueComponentId());
         }
@@ -259,9 +274,9 @@ export const TabView = React.forwardRef((props, ref) => {
     };
 
     const createPrevButton = () => {
-        if (props.scrollable && !backwardIsDisabledState) {
+        if (isScrollable) {
             return (
-                <button ref={prevBtnRef} className="p-tabview-nav-prev p-tabview-nav-btn p-link" onClick={navBackward} type="button" aria-label={ariaLabel('previousPageLabel')}>
+                <button disabled={backwardIsDisabledState} ref={prevBtnRef} className="p-tabview-nav-prev p-tabview-nav-btn p-link" onClick={navBackward} type="button" aria-label={ariaLabel('previousPageLabel')}>
                     <span className="pi pi-chevron-left"></span>
                     <Ripple />
                 </button>
@@ -272,9 +287,9 @@ export const TabView = React.forwardRef((props, ref) => {
     };
 
     const createNextButton = () => {
-        if (props.scrollable && !forwardIsDisabledState) {
+        if (isScrollable) {
             return (
-                <button ref={nextBtnRef} className="p-tabview-nav-next p-tabview-nav-btn p-link" onClick={navForward} type="button" aria-label={ariaLabel('nextPageLabel')}>
+                <button disabled={forwardIsDisabledState} ref={nextBtnRef} className="p-tabview-nav-next p-tabview-nav-btn p-link" onClick={navForward} type="button" aria-label={ariaLabel('nextPageLabel')}>
                     <span className="pi pi-chevron-right" aria-hidden="true"></span>
                     <Ripple />
                 </button>
