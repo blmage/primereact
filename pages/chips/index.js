@@ -1,18 +1,19 @@
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React from 'react';
 import { AccessibilityDoc } from '../../components/doc/chips/accessibilitydoc';
-import { ApiDoc } from '../../components/doc/chips/apidoc';
+
 import { BasicDoc } from '../../components/doc/chips/basicdoc';
 import { DisabledDoc } from '../../components/doc/chips/disableddoc';
 import { FloatLabelDoc } from '../../components/doc/chips/floatlabeldoc';
+import { FormikDoc } from '../../components/doc/chips/form/formikdoc';
+import { HookFormDoc } from '../../components/doc/chips/form/hookformdoc';
 import { ImportDoc } from '../../components/doc/chips/importdoc';
 import { InvalidDoc } from '../../components/doc/chips/invaliddoc';
 import { KeyFilterDoc } from '../../components/doc/chips/keyfilterdoc';
 import { SeparatorDoc } from '../../components/doc/chips/separatordoc';
 import { StyleDoc } from '../../components/doc/chips/styledoc';
 import { TemplateDoc } from '../../components/doc/chips/templatedoc';
-import { FormikDoc } from '../../components/doc/chips/validation/formikdoc';
-import { HookFormDoc } from '../../components/doc/chips/validation/hookformdoc';
+import { DocActions } from '../../components/doc/common/docactions';
 import { DocSectionNav } from '../../components/doc/common/docsectionnav';
 import { DocSections } from '../../components/doc/common/docsections';
 
@@ -54,6 +55,11 @@ const ChipsDemo = () => {
             component: TemplateDoc
         },
         {
+            id: 'keyfilter',
+            label: 'Key Filter',
+            component: KeyFilterDoc
+        },
+        {
             id: 'form',
             label: 'Form',
             description: 'Compatibility with popular React form libraries.',
@@ -71,11 +77,6 @@ const ChipsDemo = () => {
             ]
         },
         {
-            id: 'keyfilter',
-            label: 'Key Filter',
-            component: KeyFilterDoc
-        },
-        {
             id: 'style',
             label: 'Style',
             component: StyleDoc
@@ -88,22 +89,9 @@ const ChipsDemo = () => {
         {
             id: 'api',
             label: 'API',
-            component: ApiDoc
+            doc: [{ name: 'Chips', pathname: '/modules/chips.html' }]
         }
     ];
-
-    const [values1, setValues1] = useState([]);
-    const [values2, setValues2] = useState([]);
-    const [values3, setValues3] = useState([]);
-
-    const customChip = (item) => {
-        return (
-            <div>
-                <span>{item} - (active) </span>
-                <i className="pi pi-user-plus" style={{ fontSize: '14px' }}></i>
-            </div>
-        );
-    };
 
     return (
         <div>
@@ -117,6 +105,7 @@ const ChipsDemo = () => {
                     <h1>Chips</h1>
                     <p>Chips is used to enter multiple values on an input field.</p>
                 </div>
+                <DocActions github="/chips" />
             </div>
 
             <div className="content-section doc">

@@ -1,16 +1,15 @@
 import Head from 'next/head';
+import { AccessibilityDoc } from '../../components/doc/accordion/accessibilitydoc';
+import { BasicDoc } from '../../components/doc/accordion/basicdoc';
+import { ControlledDoc } from '../../components/doc/accordion/controlleddoc';
+import { DisabledDoc } from '../../components/doc/accordion/disableddoc';
+import { ImportDoc } from '../../components/doc/accordion/importdoc';
+import { MultipleDoc } from '../../components/doc/accordion/multipledoc';
+import { StyleDoc } from '../../components/doc/accordion/styledoc';
+import { TemplateDoc } from '../../components/doc/accordion/templatedoc';
+import { DocActions } from '../../components/doc/common/docactions';
 import { DocSectionNav } from '../../components/doc/common/docsectionnav';
 import { DocSections } from '../../components/doc/common/docsections';
-import { DocActions } from '../../components/doc/common/docactions';
-import { ImportDoc } from '../../components/doc/accordion/importdoc';
-import { BasicDoc } from '../../components/doc/accordion/basicdoc';
-import { MultipleDoc } from '../../components/doc/accordion/multipledoc';
-import { DisabledDoc } from '../../components/doc/accordion/disableddoc';
-import { ControlledDoc } from '../../components/doc/accordion/controlleddoc';
-import { TemplateDoc } from '../../components/doc/accordion/templatedoc';
-import { ApiDoc } from '../../components/doc/accordion/apidoc';
-import { AccessibilityDoc } from '../../components/doc/accordion/accessibilitydoc';
-import { StyleDoc } from '../../components/doc/accordion/styledoc';
 
 const AccordionDemo = () => {
     const docs = [
@@ -57,7 +56,10 @@ const AccordionDemo = () => {
         {
             id: 'api',
             label: 'API',
-            component: ApiDoc
+            doc: [
+                { name: 'Accordion', pathname: '/modules/accordion.html' },
+                { name: 'AccordionTab', pathname: '/classes/accordion.AccordionTab.html' }
+            ]
         }
     ];
 
@@ -72,7 +74,7 @@ const AccordionDemo = () => {
                     <h1>Accordion</h1>
                     <p>Accordion groups a collection of contents in tabs.</p>
                 </div>
-                <DocActions github="accordion/index.js" />
+                <DocActions github="/accordion" />
             </div>
             <div className="content-section doc ">
                 <DocSections docs={docs} />

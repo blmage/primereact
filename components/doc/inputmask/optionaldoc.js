@@ -18,7 +18,9 @@ export default function OptionalDemo() {
     const [value, setValue] = useState('');
 
     return (
-        <InputMask value={value} onChange={(e) => setValue(e.target.value)} mask="(999) 999-9999? x99999" placeholder="(999) 999-9999? x99999" />
+        <div className="card flex justify-content-center">
+            <InputMask value={value} onChange={(e) => setValue(e.target.value)} mask="(999) 999-9999? x99999" placeholder="(999) 999-9999? x99999" />
+        </div>
     )
 }
         `,
@@ -30,7 +32,9 @@ export default function OptionalDemo() {
     const [value, setValue] = useState<string>('');
 
     return (
-        <InputMask value={value} onChange={(e: InputMaskChangeParams) => setValue(e.target.value)} mask="(999) 999-9999? x99999" placeholder="(999) 999-9999? x99999" />
+        <div className="card flex justify-content-center">
+            <InputMask value={value} onChange={(e: InputMaskChangeParams) => setValue(e.target.value)} mask="(999) 999-9999? x99999" placeholder="(999) 999-9999? x99999" />
+        </div>
     )
 }
         `
