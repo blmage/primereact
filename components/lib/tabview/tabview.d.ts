@@ -204,6 +204,13 @@ export interface TabViewProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
      */
     scrollable?: boolean | undefined;
     /**
+     * When the tab list is scrollable, callback to invoke when a tab is activated.
+     * Return the options to be used for scrolling the tab into view, or false to prevent scrolling.
+     * @param {number} index - Activated tab index.
+     * @defaultValue { block: 'nearest' }
+     */
+    onTabScrollIntoView?: (index: number) => ScrollIntoViewOptions | false;
+    /**
      * Callback to invoke before an active tab is changed. Return false to prevent tab from changing.
      * @param {TabViewTabChangeEvent} event - Custom tab change event.
      */

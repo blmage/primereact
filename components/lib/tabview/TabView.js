@@ -10,7 +10,7 @@ export const TabView = React.forwardRef((props, ref) => {
     const [idState, setIdState] = React.useState(props.id);
     const [backwardIsDisabledState, setBackwardIsDisabledState] = React.useState(true);
     const [forwardIsDisabledState, setForwardIsDisabledState] = React.useState(false);
-    const isScrollable = props.scrollable && !backwardIsDisabledState || !forwardIsDisabledState;
+    const isScrollable = (props.scrollable && !backwardIsDisabledState) || !forwardIsDisabledState;
     const [hiddenTabsState, setHiddenTabsState] = React.useState([]);
     const [activeIndexState, setActiveIndexState] = React.useState(props.activeIndex);
     const elementRef = React.useRef(null);
@@ -85,10 +85,14 @@ export const TabView = React.forwardRef((props, ref) => {
     };
 
     const updateScrollBar = (index) => {
-        let tabHeader = tabsRef.current[`tab_${index}`];
+        const tabHeader = tabsRef.current[`tab_${index}`];
 
         if (tabHeader && tabHeader.scrollIntoView) {
-            tabHeader.scrollIntoView({ block: 'nearest' });
+            const scrollOptions = !ObjectUtils.isFunction(props.onTabScrollIntoView) ? { block: 'nearest' } : props.onTabScrollIntoView(index);
+
+            if (scrollOptions) {
+                tabHeader.scrollIntoView(scrollOptions);
+            }
         }
     };
 
@@ -141,7 +145,7 @@ export const TabView = React.forwardRef((props, ref) => {
         if (props.scrollable) {
             updateButtonState();
         }
-    }, [ props.scrollable ]);
+    }, [props.scrollable]);
 
     const [bindWindowResizeListener] = useResizeListener({
         listener: () => {
