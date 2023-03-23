@@ -2,7 +2,7 @@
  *
  * TreeTable is used to display hierarchical data in tabular format.
  *
- * [Live Demo](https://www.primefaces.org/primereact/treetable/)
+ * [Live Demo](https://www.primereact.org/treetable/)
  *
  * @module treetable
  *
@@ -14,7 +14,6 @@ import TreeNode from '../treenode';
 
 /**
  * Custom selection keys type.
- * @group Misc
  */
 interface TreeTableSelectionKeysType {
     /**
@@ -25,7 +24,6 @@ interface TreeTableSelectionKeysType {
 
 /**
  * Custom treetable checkbox selection type
- * @group Misc
  */
 interface TreeTableCheckboxSelectionKeyType {
     /**
@@ -40,7 +38,6 @@ interface TreeTableCheckboxSelectionKeyType {
 
 /**
  * Custom expanded keys type.
- * @group Misc
  */
 type TreeTableExpandedKeysType = {
     /**
@@ -51,7 +48,6 @@ type TreeTableExpandedKeysType = {
 
 /**
  * Custom treetable sort meta.
- * @group Misc
  */
 interface TreeTableSortMeta {
     /**
@@ -80,7 +76,6 @@ interface TreeTableFilterMetaData {
 
 /**
  * Custom treetable filter meta.
- * @group Misc
  */
 interface TreeTableFilterMeta {
     /**
@@ -236,11 +231,6 @@ export interface TreeTableProps extends Omit<React.DetailedHTMLProps<React.Input
      */
     alwaysShowPaginator?: boolean | undefined;
     /**
-     * Whether the cell widths scale according to their content or not.
-     * @defaultValue true
-     */
-    autoLayout?: boolean | undefined;
-    /**
      * Used to get the child elements of the component.
      * @readonly
      */
@@ -259,8 +249,8 @@ export interface TreeTableProps extends Omit<React.DetailedHTMLProps<React.Input
      */
     contextMenuSelectionKey?: string | undefined;
     /**
-     * Template of the current page report element. Available placeholders are {currentPage}, {totalPages}, {rows}, {first}, {last} and {totalRecords}.
-     * @defaultValue ({currentPage} of {totalPages})
+     * Template of the current page report element. Available placeholders are &#123;currentPage&#125;, &#123;totalPages&#125;, &#123;rows&#125;, &#123;first&#125;, &#123;last&#125; and &#123;totalRecords&#125;
+     * @defaultValue (&#123;currentPage&#125; of &#123;totalPages&#125;)
      */
     currentPageReportTemplate?: string | undefined;
     /**
@@ -592,9 +582,9 @@ export interface TreeTableProps extends Omit<React.DetailedHTMLProps<React.Input
  *
  * _TreeTable is used to display hierarchical data in tabular format._
  *
- * [Live Demo](https://www.primefaces.org/primereact/treetable/)
+ * [Live Demo](https://www.primereact.org/treetable/)
  * --- ---
- * ![PrimeReact](https://www.primefaces.org/primereact/images/logo-100.png)
+ * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
  *
  * @group Component
  */

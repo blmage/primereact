@@ -2,7 +2,7 @@
  *
  * Chip represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primefaces.org/primereact/chip)
+ * [Live Demo](https://www.primereact.org/chip)
  *
  * @module chip
  *
@@ -72,9 +72,9 @@ export interface ChipProps extends Omit<React.DetailedHTMLProps<React.HTMLAttrib
  *
  * _Chip represents people using icons, labels and images._
  *
- * [Live Demo](https://www.primefaces.org/primereact/chip/)
+ * [Live Demo](https://www.primereact.org/chip/)
  * --- ---
- * ![PrimeReact](https://www.primefaces.org/primereact/images/logo-100.png)
+ * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
  *
  * @group Component
  */

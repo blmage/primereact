@@ -2,7 +2,7 @@
  *
  * AutoComplete is an input component that provides real-time suggestions while being typed.
  *
- * [Live Demo](https://www.primefaces.org/primereact/autocomplete/)
+ * [Live Demo](https://www.primereact.org/autocomplete/)
  *
  * @module autocomplete
  *
@@ -378,9 +378,9 @@ export interface AutoCompleteProps extends Omit<React.DetailedHTMLProps<React.HT
  *
  * _AutoComplete is an input component that provides real-time suggestions while being typed._
  *
- * [Live Demo](https://www.primefaces.org/primereact/autocomplete/)
+ * [Live Demo](https://www.primereact.org/autocomplete/)
  * --- ---
- * ![PrimeReact](https://www.primefaces.org/primereact/images/logo-100.png)
+ * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
  *
  * @group Component
  */

@@ -2,7 +2,7 @@
  *
  * Calendar also known as DatePicker, is a form component to work with dates.
  *
- * [Live Demo](https://www.primefaces.org/primereact/calendar/)
+ * [Live Demo](https://www.primereact.org/calendar/)
  *
  * @module calendar
  *
@@ -593,9 +593,9 @@ export interface CalendarProps {
  *
  * _Calendar also known as DatePicker, is a form component to work with dates._
  *
- * [Live Demo](https://www.primefaces.org/primereact/calendar/)
+ * [Live Demo](https://www.primereact.org/calendar/)
  * --- ---
- * ![PrimeReact](https://www.primefaces.org/primereact/images/logo-100.png)
+ * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
  *
  * @group Component
  */

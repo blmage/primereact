@@ -2,7 +2,7 @@
  *
  * Displays a single image with preview and tranformation options.
  *
- * [Live Demo](https://www.primefaces.org/primereact/image/)
+ * [Live Demo](https://www.primereact.org/image/)
  *
  * @module image
  *
@@ -76,9 +76,9 @@ export interface ImageProps extends Omit<React.DetailedHTMLProps<React.HTMLAttri
  *
  * _Displays a single image with preview and tranformation options._
  *
- * [Live Demo](https://www.primefaces.org/primereact/image/)
+ * [Live Demo](https://www.primereact.org/image/)
  * --- ---
- * ![PrimeReact](https://www.primefaces.org/primereact/images/logo-100.png)
+ * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
  *
  * @group Component
  */
