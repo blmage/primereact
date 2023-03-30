@@ -151,7 +151,7 @@ export const Image = React.memo(
                         onExited={onExited}
                     >
                         <div ref={previewRef}>
-                            <img src={props.zoomSrc || props.src} className="p-image-preview" style={imagePreviewStyle} onClick={onPreviewImageClick} alt={props.alt} />
+                            <img src={props.zoomSrc || props.src} className="p-image-preview" style={imagePreviewStyle} onClick={onPreviewImageClick} alt={props.alt} loading={props.loading} />
                         </div>
                     </CSSTransition>
                 </div>
@@ -174,7 +174,7 @@ export const Image = React.memo(
         const element = createElement();
         const content = props.template ? ObjectUtils.getJSXElement(props.template, props) : <i className="p-image-preview-icon pi pi-eye"></i>;
         const preview = createPreview();
-        const image = props.src && <img ref={imageRef} src={src} className={props.imageClassName} width={width} height={height} style={props.imageStyle} alt={alt} onError={props.onError} />;
+        const image = props.src && <img ref={imageRef} src={src} className={props.imageClassName} width={width} height={height} style={props.imageStyle} alt={alt} loading={props.loading} onError={props.onError} />;
 
         return (
             <span ref={elementRef} className={containerClassName} {...otherProps}>

@@ -41,6 +41,10 @@ export interface ImageProps extends Omit<React.DetailedHTMLProps<React.HTMLAttri
      */
     imageStyle?: React.CSSProperties | undefined;
     /**
+     * Loading behavior of the image element.
+     */
+    loading?: 'eager' | 'lazy' | undefined;
+    /**
      * Controls the preview functionality.
      * @default false
      */

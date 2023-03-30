@@ -15610,6 +15610,14 @@
                             "description": "Inline style of the image element."
                         },
                         {
+                            "name": "loading",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "\"eager\" | \"lazy\"",
+                            "default": "",
+                            "description": "Loading behavior of the image element."
+                        },
+                        {
                             "name": "preview",
                             "optional": true,
                             "readonly": false,
@@ -25517,6 +25525,13 @@
                             "type": "ReactNode",
                             "default": "",
                             "description": "Used to get the child elements of the component."
+                        },
+                        {
+                            "name": "onTabScrollIntoView",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Function",
+                            "default": ""
                         },
                         {
                             "name": "panelContainerClassName",
