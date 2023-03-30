@@ -1,40 +1,37 @@
 import * as React from 'react';
 import { localeOption } from '../api/Api';
 import { useMountEffect, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
-import { classNames, ObjectUtils } from '../utils/Utils';
+import { classNames, DomHandler, ObjectUtils } from '../utils/Utils';
+import { isPlainObject } from 'is-plain-object';
 import { DataScrollerBase } from './DataScrollerBase';
 
 export const DataScroller = React.memo(
     React.forwardRef((inProps, ref) => {
         const props = DataScrollerBase.getProps(inProps);
 
-        const [dataToRenderState, setDataToRenderState] = React.useState([]);
+        const [, setDataToRenderState] = React.useState([]);
         const elementRef = React.useRef(null);
         const contentRef = React.useRef(null);
+        const scrollableContentRef = React.useRef(null);
         const value = React.useRef(props.value);
         const dataToRender = React.useRef([]);
         const first = React.useRef(0);
         const scrollFunction = React.useRef(null);
+        const { lazy, onLazyLoad, rows, value: baseValue } = props;
 
-        const handleDataChange = () => {
-            if (props.lazy) {
-                dataToRender.current = value.current;
-                setDataToRenderState([...dataToRender.current]);
-            } else {
-                load();
-            }
-        };
-
-        const load = () => {
-            if (props.lazy) {
-                if (props.onLazyLoad) {
-                    props.onLazyLoad(createLazyLoadMetadata());
+        const load = React.useCallback(() => {
+            if (lazy) {
+                if (onLazyLoad) {
+                    onLazyLoad({
+                        rows,
+                        first: first.current
+                    });
                 }
 
-                first.current += props.rows;
+                first.current += rows;
             } else {
                 if (value.current) {
-                    for (let i = first.current; i < first.current + props.rows; i++) {
+                    for (let i = first.current; i < first.current + rows; i++) {
                         if (i >= value.current.length) {
                             break;
                         }
@@ -43,45 +40,36 @@ export const DataScroller = React.memo(
                     }
 
                     if (value.current.length !== 0) {
-                        first.current += props.rows;
+                        first.current += rows;
                     }
 
-                    setDataToRenderState([...dataToRender.current]);
+                    setDataToRenderState(dataToRender.current);
                 }
             }
-        };
+        }, [lazy, onLazyLoad, rows, first, value, dataToRender, setDataToRenderState]);
 
         const reset = () => {
             first.current = 0;
             dataToRender.current = [];
-            setDataToRenderState([...dataToRender.current]);
+            setDataToRenderState(dataToRender.current);
             load();
-        };
-
-        const isEmpty = () => {
-            return !dataToRender.current || dataToRender.current.length === 0;
-        };
-
-        const createLazyLoadMetadata = () => {
-            return {
-                first: first.current,
-                rows: props.rows
-            };
         };
 
         const bindScrollListener = () => {
             if (props.inline) {
+                scrollableContentRef.current = DomHandler.getScrollableParents(contentRef.current.firstElement || contentRef.current)[0];
+
                 scrollFunction.current = () => {
-                    let scrollTop = contentRef.current.scrollTop,
-                        scrollHeight = contentRef.current.scrollHeight,
-                        viewportHeight = contentRef.current.clientHeight;
+                    let scrollTop = scrollableContentRef.current.scrollTop,
+                        scrollHeight = scrollableContentRef.current.scrollHeight,
+                        viewportHeight = scrollableContentRef.current.clientHeight;
 
                     if (scrollTop >= scrollHeight * props.buffer - viewportHeight) {
                         load();
                     }
                 };
 
-                contentRef.current.addEventListener('scroll', scrollFunction.current);
+                scrollableContentRef.current.addEventListener('scroll', scrollFunction.current);
             } else {
                 scrollFunction.current = () => {
                     let docBody = document.body,
@@ -101,8 +89,8 @@ export const DataScroller = React.memo(
 
         const unbindScrollListener = () => {
             if (scrollFunction.current) {
-                if (props.inline && contentRef.current) {
-                    contentRef.current.removeEventListener('scroll', scrollFunction.current);
+                if (props.inline && scrollableContentRef.current) {
+                    scrollableContentRef.current.removeEventListener('scroll', scrollFunction.current);
                 } else if (!props.loader) {
                     window.removeEventListener('scroll', scrollFunction.current);
                 }
@@ -119,18 +107,30 @@ export const DataScroller = React.memo(
             }
         });
 
-        useUpdateEffect(() => {
-            if (props.value) {
-                value.current = props.value;
+        React.useMemo(() => {
+            if (baseValue) {
+                if (Array.isArray(baseValue)) {
+                    value.current = baseValue;
+                } else if (baseValue instanceof Map) {
+                    value.current = Array.from(baseValue.values());
+                } else if (isPlainObject(baseValue)) {
+                    value.current = Object.values(baseValue);
+                }
 
-                if (!props.lazy) {
+                if (!lazy) {
                     first.current = 0;
                 }
 
                 dataToRender.current = [];
-                handleDataChange();
+
+                if (lazy) {
+                    dataToRender.current = value.current;
+                    setDataToRenderState(dataToRender.current);
+                } else {
+                    load();
+                }
             }
-        }, [props.value]);
+        }, [lazy, baseValue, value, first, dataToRender, setDataToRenderState, load]);
 
         useUpdateEffect(() => {
             if (props.loader) {
@@ -181,7 +181,7 @@ export const DataScroller = React.memo(
         };
 
         const createContent = () => {
-            const content = ObjectUtils.isNotEmpty(dataToRenderState) ? dataToRenderState.map(createItem) : createEmptyMessage();
+            const content = ObjectUtils.isNotEmpty(dataToRender.current) ? dataToRender.current.map(createItem) : createEmptyMessage();
 
             return (
                 <div ref={contentRef} className="p-datascroller-content" style={{ maxHeight: props.scrollHeight }}>
