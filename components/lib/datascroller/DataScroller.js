@@ -57,7 +57,7 @@ export const DataScroller = React.memo(
 
         const bindScrollListener = () => {
             if (props.inline) {
-                scrollableContentRef.current = DomHandler.getScrollableParents(contentRef.current.firstElement || contentRef.current)[0];
+                scrollableContentRef.current = DomHandler.getScrollableParents(contentRef.current.firstElementChild || contentRef.current)[0];
 
                 scrollFunction.current = () => {
                     let scrollTop = scrollableContentRef.current.scrollTop,
